@@ -7,6 +7,11 @@ Synopsis
 
 How to use
 ==========
+1) On your terminal , run the command gem install bundle (if you don't have bundle already)
+
+2) Once the installation completes, run bundle
+
+3) On your terminal, run irb and below is an example of how to use the program
 
 Running tests
 =============
@@ -14,6 +19,6 @@ Running tests
 How I approached this challenge
 ===============================
 
-Author
-======
+Author/Pair Partners
+====================
 Albert Yanit, Katie Koschland
