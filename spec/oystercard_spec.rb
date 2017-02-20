@@ -18,8 +18,16 @@ describe OysterCard do
       expect{ subject.top_up(10) }.to change{ subject.balance }.by 10
     end
 
-    it 'raises error if new balance is more than 90' do
-      expect{ subject.top_up(91) }.to raise_error 'Cannot top up, reached maximum limit of 90'
+    it 'raises error if max balance is exceeded' do
+      maximum_balance = OysterCard::MAXIMUM_BALANCE
+      subject.top_up(maximum_balance) # set balance to max, then add 1 in next
+    expect{ subject.top_up(1) }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
     end
+
+    it 'raises error if top up amount is below minimum value' do
+      minimum_balance = OysterCard::MINIMUM_BALANCE
+      expect{ subject.top_up(1) }.to raise_error "Unable to top-up below the amount of #{minimum_balance}"
+    end
+
   end
 end
