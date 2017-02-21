@@ -2,7 +2,7 @@ require 'oystercard'
 
 describe OysterCard do
   subject(:oystercard) { OysterCard.new }
-  let (:station) { double :station, station_name: "entry station" }
+  let (:station) { double :station }
 
   context '#balance' do
     it 'balance of zero' do
