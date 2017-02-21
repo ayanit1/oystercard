@@ -76,6 +76,21 @@ describe OysterCard do
           expect{ subject.touch_out }.to change{ subject.in_journey? }.to false
         end
 
+        it 'deducts minimum fare from balance' do
+          min_fare = OysterCard::MINIMUM_FARE
+          subject.touch_in
+          expect { subject.touch_out }.to change{ subject.balance }.by -min_fare
+        end
+
+    end
+
+    context 'card balance is below minimum' do
+
+      it 'raises an error on .touch_in' do
+        min_fare = OysterCard::MINIMUM_FARE
+        expect{ subject.touch_in }.to raise_error("Insufficient funds - minimum fare is £#{min_fare}, current balance is £#{subject.balance}")
+      end
+
     end
 
   end
