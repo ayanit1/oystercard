@@ -2,7 +2,8 @@ require 'oystercard'
 
 describe OysterCard do
   subject(:oystercard) { OysterCard.new }
-  let (:station) { double :station }
+  let (:entry_station) { double :entry_station }
+  let (:exit_station) { double :exit_station }
 
   context '#balance' do
     it 'balance of zero' do
@@ -49,14 +50,21 @@ describe OysterCard do
 
     end
 
+    context '#journeys' do
+      it 'has an empty list of journeys by default' do
+        expect(subject.journeys).to be_empty
+      end
+    end
+
     context 'card is topped' do
+      let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
       # before :each do
       #   subject.top_up(OysterCard::MAXIMUM_BALANCE)
       # end
       before (:each) { subject.top_up(OysterCard::MAXIMUM_BALANCE) }
 
         it 'saves entry station to card' do
-          expect{ subject.touch_in(station) }.to change{ subject.entry_station }.to station
+          expect{ subject.touch_in(entry_station) }.to change{ subject.entry_station }.to entry_station
         end
 
         it 'is initially not in a journey' do
@@ -64,34 +72,30 @@ describe OysterCard do
         end
 
         it 'changes .in_journey? to true' do
-          expect{ subject.touch_in(station) }.to change{ subject.in_journey? }.to true
+          expect{ subject.touch_in(entry_station) }.to change{ subject.in_journey? }.to true
         end
 
         it 'changes .in_journey? to false' do
-          subject.touch_in(station)
-          expect{ subject.touch_out }.to change{ subject.in_journey? }.to false
+          subject.touch_in(entry_station)
+          expect{ subject.touch_out(exit_station) }.to change{ subject.in_journey? }.to false
         end
 
         it 'deducts minimum fare from balance' do
           min_fare = OysterCard::MINIMUM_FARE
-          subject.touch_in(station)
-          expect { subject.touch_out }.to change{ subject.balance }.by -min_fare
+          subject.touch_in(entry_station)
+          expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by -min_fare
         end
 
-        it ' sets #entry_station to nil on touch out' do
-          subject.touch_in(station)
-          expect{ subject.touch_out }.to change{ subject.entry_station }.to be_nil
+        it ' sets #entry_station to nil on touch_out' do
+          subject.touch_in(entry_station)
+          expect{ subject.touch_out(exit_station) }.to change{ subject.entry_station }.to be_nil
         end
 
-        # it 'saves entry station to card' do
-        #   station = double("entry station")
-        #   allow(station).to receive(:station_name).and_return("entry station")
-        #   expect(subject.touch_in(station)).to eq station.station_name
-        # end
-
-        #   it 'changes .in_journey? to true' do
-        #     expect{ subject.touch_in }.to change{ subject.in_journey? }.to true
-        #   end
+        it 'add a journey to the card on touch_out' do
+          subject.touch_in(entry_station)
+          subject.touch_out(exit_station)
+          expect(subject.journeys).to include journey
+        end
 
     end
 
@@ -99,7 +103,7 @@ describe OysterCard do
 
       it 'raises an error on .touch_in' do
         min_fare = OysterCard::MINIMUM_FARE
-        expect{ subject.touch_in(station) }.to raise_error("Insufficient funds - minimum fare is £#{min_fare}, current balance is £#{subject.balance}")
+        expect{ subject.touch_in(entry_station) }.to raise_error("Insufficient funds - minimum fare is £#{min_fare}, current balance is £#{subject.balance}")
       end
 
     end
