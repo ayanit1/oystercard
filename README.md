@@ -5,9 +5,9 @@ Our challenge from week 2 at Makers Academy focuses on Object orientated orienta
 Synopsis
 ========
 
-How to use
+Usage
 ==========
-1) On your terminal , run the command gem install bundle (if you don't have bundle already)
+1) On your terminal, run the command gem install bundle (if you don't have bundle already)
 
 2) Once the installation completes, run bundle
 
