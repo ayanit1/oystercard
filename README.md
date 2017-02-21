@@ -21,4 +21,4 @@ How I approached this challenge
 
 Author/Pair Partners
 ====================
-Albert Yanit, Katie Koschland
+Albert Yanit, Katie Koschland, Joe
