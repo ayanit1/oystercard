@@ -38,7 +38,45 @@ describe OysterCard do
         allow(subject).to receive(:top_up) { 10 }
         expect{ subject.deduct(5) }.to change{ subject.balance }.by (-5)
       end
+    end
+
+    context '.touch_in' do
+      it 'responds' do
+        expect(subject).to respond_to(:touch_in)
+      end
+
+    #   it 'changes .in_journey? to true' do
+    #     expect{ subject.touch_in }.to change{ subject.in_journey? }.to true
+    #   end
+    end
+
+    context '.touch_out' do
+      it 'responds' do
+        expect(subject).to respond_to(:touch_out)
+      end
 
     end
+
+    context 'card is topped' do
+      # before :each do
+      #   subject.top_up(OysterCard::MAXIMUM_BALANCE)
+      # end
+      before (:each) { subject.top_up(OysterCard::MAXIMUM_BALANCE) }
+
+        it 'is initially not in a journey' do
+          expect(subject).not_to be_in_journey
+        end
+
+        it 'changes .in_journey? to true' do
+          expect{ subject.touch_in }.to change{ subject.in_journey? }.to true
+        end
+
+        it 'changes .in_journey? to false' do
+          subject.touch_in
+          expect{ subject.touch_out }.to change{ subject.in_journey? }.to false
+        end
+
+    end
+
   end
 end
