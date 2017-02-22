@@ -52,7 +52,7 @@ describe OysterCard do
 
     context '#journeys' do
       it 'has an empty list of journeys by default' do
-        expect(oystercard.journeys).to be_empty
+        expect(oystercard.journey_hist).to be_empty
       end
     end
 
@@ -94,7 +94,7 @@ describe OysterCard do
         it 'add a journey to the card on touch_out' do
           oystercard.touch_in(entry_station)
           oystercard.touch_out(exit_station)
-          expect(oystercard.journeys).to include journey
+          expect(oystercard.journey_hist).to include journey
         end
 
     end
