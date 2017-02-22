@@ -56,25 +56,16 @@ describe OysterCard do
       expect(oystercard.journey_hist).to be_empty
     end
 
-    context 'card is topped' do
+    context 'card is topped up,' do
       let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
       before (:each) { oystercard.top_up(OysterCard::MAXIMUM_BALANCE) }
 
-        it 'saves entry station to card' do
+        xit 'saves entry station to card' do
           expect{ oystercard.touch_in(entry_station) }.to change{ oystercard.entry_station }.to entry_station
         end
 
         it 'is initially not in a journey' do
           expect(oystercard).not_to be_in_journey
-        end
-
-        it 'changes .in_journey? to true' do
-          expect{ oystercard.touch_in(entry_station) }.to change{ oystercard.in_journey? }.to true
-        end
-
-        it 'changes .in_journey? to false' do
-          oystercard.touch_in(entry_station)
-          expect{ oystercard.touch_out(exit_station) }.to change{ oystercard.in_journey? }.to false
         end
 
         it 'deducts minimum fare from balance' do
@@ -83,12 +74,7 @@ describe OysterCard do
           expect { oystercard.touch_out(exit_station) }.to change{ oystercard.balance }.by -min_fare
         end
 
-        it ' sets #entry_station to nil on touch_out' do
-          oystercard.touch_in(entry_station)
-          expect{ oystercard.touch_out(exit_station) }.to change{ oystercard.entry_station }.to be_nil
-        end
-
-        it 'add a journey to the card on touch_out' do
+        xit 'add a journey to the card on touch_out' do
           oystercard.touch_in(entry_station)
           oystercard.touch_out(exit_station)
           expect(oystercard.journey_hist).to include journey
@@ -96,13 +82,13 @@ describe OysterCard do
 
     end
 
-    context 'card balance is below minimum' do
+    context 'card balance is below minimum,' do
 
       it 'raises an error on .touch_in' do
         min_fare = OysterCard::MINIMUM_FARE
         expect{ oystercard.touch_in(entry_station) }.to raise_error("Insufficient funds - minimum fare is £#{min_fare}, current balance is £#{subject.balance}")
       end
 
-    end  
+    end
   end
 end

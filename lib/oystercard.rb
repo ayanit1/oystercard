@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class OysterCard
 
   MAXIMUM_BALANCE = 90
@@ -18,26 +20,23 @@ class OysterCard
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def touch_in(station)
     raise "Insufficient funds - minimum fare is £#{MINIMUM_FARE}, current balance is £#{@balance}" unless sufficient_funds?
-    @entry_station = station
-    @journey = {}
-    @journey[:entry_station] = @entry_station
+    @current_journey = Journey.new
+    @current_journey.start_journey(station)
   end
 
   def touch_out(station)
     deduct(MINIMUM_FARE)
-    @journey[:exit_station] = station
-    @journey_hist << @journey
-    @entry_station = nil
+    @current_journey.end_journey(station)
   end
 
   def in_journey?
     @entry_station != nil
+  end
+
+  def deduct(amount)
+    @balance -= amount
   end
 
   private
