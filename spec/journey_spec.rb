@@ -35,16 +35,16 @@ describe Journey do
       journey.start_journey(entry_station)
       expect(journey.fare).to eq 6
     end
+  end
 
-    describe '.in_journey?' do
-      it 'returns true when in journey' do
-        journey.start_journey(entry_station)
-        expect(journey.in_journey?).to be true
-      end
+  describe '.in_journey?' do
+    it 'returns true when in journey' do
+      journey.start_journey(entry_station)
+      expect(journey.in_journey?).to be true
+    end
 
-      it 'returns false when not in journey ' do
-        expect(journey.in_journey?).to be false
-      end
+    it 'returns false when not in journey ' do
+      expect(journey.in_journey?).to be false
     end
   end
 end
