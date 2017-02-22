@@ -49,18 +49,15 @@ describe OysterCard do
       end
 
     end
+  end
 
-    context '#journeys' do
-      it 'has an empty list of journeys by default' do
-        expect(oystercard.journey_hist).to be_empty
-      end
+  context '#journeys' do
+    it 'has an empty list of journeys by default' do
+      expect(oystercard.journey_hist).to be_empty
     end
 
     context 'card is topped' do
       let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
-      # before :each do
-      #   subject.top_up(OysterCard::MAXIMUM_BALANCE)
-      # end
       before (:each) { oystercard.top_up(OysterCard::MAXIMUM_BALANCE) }
 
         it 'saves entry station to card' do
@@ -106,7 +103,6 @@ describe OysterCard do
         expect{ oystercard.touch_in(entry_station) }.to raise_error("Insufficient funds - minimum fare is £#{min_fare}, current balance is £#{subject.balance}")
       end
 
-    end
-
+    end  
   end
 end

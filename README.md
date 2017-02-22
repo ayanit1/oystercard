@@ -16,7 +16,7 @@ Progression / Things I would want to improve
 - To refactor my code further
 - To delete unnecessary tests
 - More testing on edge cases
--
+- Refine my feature spec
 
 Usage
 ==========
