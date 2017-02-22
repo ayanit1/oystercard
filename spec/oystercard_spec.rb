@@ -33,12 +33,12 @@ describe OysterCard do
 
     context '.deduct' do
       it 'responds with 1 arguement' do
-        expect(oystercard).to respond_to(:deduct).with(1).argument
+        expect(oystercard).to respond_to(:deduct_from_balance).with(1).argument
       end
 
       it 'deducts balance by a specified amount' do
         allow(oystercard).to receive(:top_up) { 10 }
-        expect{ oystercard.deduct(5) }.to change{ oystercard.balance }.by (-5)
+        expect{ oystercard.deduct_from_balance(5) }.to change{ oystercard.balance }.by (-5)
       end
     end
 

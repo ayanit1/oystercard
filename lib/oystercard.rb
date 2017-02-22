@@ -17,17 +17,17 @@ class OysterCard
   def top_up(amount)
     raise "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if @balance + amount > MAXIMUM_BALANCE
     raise "Unable to top-up below the amount of #{MINIMUM_BALANCE}" if amount < MINIMUM_BALANCE
-    @balance += amount
+    add_to_balance(amount)
   end
 
   def touch_in(station)
     raise "Insufficient funds - minimum fare is £#{MINIMUM_FARE}, current balance is £#{@balance}" unless sufficient_funds?
-    @current_journey = Journey.new
+    begin_journey_process
     @current_journey.start_journey(station)
   end
 
   def touch_out(station)
-    deduct(MINIMUM_FARE)
+    deduct_from_balance(MINIMUM_FARE)
     @current_journey.end_journey(station)
   end
 
@@ -35,11 +35,19 @@ class OysterCard
     @entry_station != nil
   end
 
-  def deduct(amount)
+  def add_to_balance(amount)
+    @balance += amount
+  end
+
+  def deduct_from_balance(amount)
     @balance -= amount
   end
 
   private
+
+  def begin_journey_process
+    @current_journey = Journey.new
+  end
 
   def sufficient_funds?
     @balance >= MINIMUM_FARE
