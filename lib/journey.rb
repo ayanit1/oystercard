@@ -3,7 +3,12 @@ class Journey
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
 
-  attr_reader :entry_station, :exit_station
+  attr_reader :entry_station, :exit_station, :journey_hist
+
+  def initialize
+    @journey_hist = []
+    @entry_station, @exit_station = nil
+  end
 
   def start_journey(entry_station)
     @entry_station = entry_station
@@ -19,5 +24,9 @@ class Journey
 
   def in_journey?
     !!@entry_station
+  end
+
+  def save_journey
+    @journey_hist << {entry: @entry_station, exit: @exit_station}
   end
 end
