@@ -7,7 +7,7 @@ class OysterCard
   MINIMUM_FARE = 1
   DEFAULT_BALANCE = 0
 
-  attr_reader :balance, :entry_station, :journey_hist
+  attr_reader :balance, :entry_station
 
   def initialize
     @balance = DEFAULT_BALANCE
@@ -29,13 +29,6 @@ class OysterCard
     deduct_from_balance(MINIMUM_FARE)
     @current_journey.end_journey(station)
   end
-
-  # def save_journey
-  #   complete_journey = {}
-  #   complete_journey[:entry_station] = @current_journey.start_journey(station)
-  #   complete_journey[:end_station] = @current_journey.end_journey(station)
-  #   @journey_hist << complete_journey
-  # end
 
   def in_journey?
     @entry_station != nil
