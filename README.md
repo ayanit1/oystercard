@@ -18,7 +18,7 @@ Progression / Things I would want to improve
 - More testing on edge cases
 - Refine my feature spec
 
-Usage
+<!-- Usage
 ==========
 1) On your terminal, run the command gem install bundle (if you don't have bundle already)
 
@@ -27,9 +27,8 @@ Usage
 3) On your terminal, run irb and below is an example of how to use the program
 
 Running tests
-=============
-
+============= -->
 
 Author/Pair Partners
 ====================
-Albert Yanit, Katie Koschland, Joe Maidman, John Chang
+Albert Yanit, Katie Koschland, Joe Maidman, John Chang, Tahir Razer
