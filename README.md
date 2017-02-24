@@ -18,7 +18,7 @@ Progression / Things I would want to improve
 - More testing on edge cases
 - Refine my feature spec
 
-<!-- Usage
+Usage
 ==========
 1) On your terminal, run the command gem install bundle (if you don't have bundle already)
 
@@ -26,8 +26,24 @@ Progression / Things I would want to improve
 
 3) On your terminal, run irb and below is an example of how to use the program
 
+```
+2.3.3 :001 > require './lib/oystercard'
+ => true
+2.3.3 :002 > mycard = OysterCard.new
+ => #<OysterCard:0x007fad0a969d30 @balance=0, @current_journey=#<Journey:0x007fad0a969d08 @journey_hist=[], @entry_station=nil, @exit_station=nil>>
+2.3.3 :003 > mycard.top_up(50)
+ => 50
+2.3.3 :004 > mycard.touch_in("Leyton")
+
+ => "Leyton"
+2.3.3 :005 > mycard.touch_out("Leytonstone")
+ => [{:entry=>"Leyton", :exit=>"Leytonstone"}]
+2.3.3 :006 > mycard.balance
+ => 49
+ ```
+
 Running tests
-============= -->
+=============
 
 Author/Pair Partners
 ====================
