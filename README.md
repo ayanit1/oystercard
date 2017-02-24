@@ -47,4 +47,4 @@ Running tests
 
 Author/Pair Partners
 ====================
-Albert Yanit, Katie Koschland, Joe Maidman, John Chang, Tahir Razer
+Albert Yanit, Katie Koschland, Joe Maidman, John Chang, Tahir Razer, Flora Harvey
